@@ -1,3 +1,3 @@
 # RMV-task3
 ## Result
-![Result](./result.png)
+![Result](./Final_Result.png)
