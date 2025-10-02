@@ -46,9 +46,9 @@
 │   ├── cmake_install.cmake
 │   ├── compile_commands.json
 │   ├── Makefile
-│   └── trajectory_fitter  **Executable File**
+│   └── trajectory_fitter  //Executable File
 ├── CMakeLists.txt 
-├── Final_Results.png **Final Results**
-├── main.cpp **Src code**
+├── Final_Results.png //Final Results
+├── main.cpp //Src code
 └── video.mp4
 ```
