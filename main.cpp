@@ -11,7 +11,7 @@
 
 struct RawTrajectoryPoint {
     double t;
-    cv::Point pos;
+    cv::Point2f pos;
 };
 
 struct TrajectoryResidual {
@@ -74,14 +74,14 @@ int main(int argc, char** argv) {
             break;
         }
 
-        cv::Mat hsv, mask, processed;
+        cv::Mat hsv,  processed;
         cv::cvtColor(frame, hsv, cv::COLOR_BGR2HSV);
         
-        cv::Scalar lower_color(90, 50, 50);
+        cv::Scalar lower_color(80, 50, 50);
         cv::Scalar upper_color(130, 255, 255);
-        cv::inRange(hsv, lower_color, upper_color, mask);
+        cv::inRange(hsv, lower_color, upper_color, processed);
         cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
-        cv::morphologyEx(mask, processed, cv::MORPH_OPEN, kernel);
+        cv::morphologyEx(processed, processed, cv::MORPH_OPEN, kernel);
         std::vector<std::vector<cv::Point>> contours;
         cv::findContours(processed, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
@@ -98,7 +98,7 @@ int main(int argc, char** argv) {
             if (radius > 3) {
                 cv::Moments M = cv::moments(max_contour);
                 if (M.m00 > 0) {
-                    cv::Point center(static_cast<int>(M.m10 / M.m00), static_cast<int>(M.m01 / M.m00));
+                    cv::Point2f center((M.m10 / M.m00), (M.m01 / M.m00));
                     raw_data.push_back({frame_count * dt, center});
                 }
             }
